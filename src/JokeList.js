@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Joke from './Joke';
 import axios from 'axios';
 
-const I_CAN_HAZ_DAD_JOKES_URL = `https://icanhazdadjoke.com/search?limit=10`;
+const I_CAN_HAZ_DAD_JOKES_URL = `https://icanhazdadjoke.com/`;
 class JokeList extends Component {
     constructor(props){
         super(props);
@@ -15,13 +15,17 @@ class JokeList extends Component {
 
     //make API call to ICANˀHAZDADJOKES, get ten jokes, and insert into jokes state
     async componentDidMount(){
-        let getJokes = await axios.get(I_CAN_HAZ_DAD_JOKES_URL,
-                                       {headers: {'Accept': 'application/json'} });
+        for(let i = 0; i < 10; i++){
+            let getJoke = await axios.get(I_CAN_HAZ_DAD_JOKES_URL,
+                                        {headers: {'Accept': 'application/json'} });
+            this.setState(  { jokes:  [...this.state.jokes, {score:0, joke: getJoke.data.joke, id: getJoke.data.id }]  });                            
+        }
         //map through and insert jokes into state
-        getJokes.data.results.map( jk => this.setState( { jokes:  [...this.state.jokes, {score:0, joke: jk.joke, id: jk.id }]  }) );
+        //getJokes.data.results.map( jk => this.setState( { jokes:  [...this.state.jokes, {score:0, joke: jk.joke, id: jk.id }]  }) );
     }
 
     // Increment joke score by one, track by joke id.
+    //FIXME FIXME FIXME FIXME FIXME FIXME 
     upVote(jkID) {
         const updateScore = this.state.jokes.map(jk => {
             if (jk.id === jkID) {
@@ -33,6 +37,7 @@ class JokeList extends Component {
     }
 
     // Decrement joke score by one, track by joke id.
+    //FIXME FIXME FIXME FIXME FIXME FIXME
     downVote(jkID) {
         const updateScore = this.state.jokes.map(jk => {
             if (jk.id === jkID) {
