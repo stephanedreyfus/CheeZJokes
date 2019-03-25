@@ -7,7 +7,6 @@ class Joke extends Component {
             <div>
                 <p>Score: {score}</p>
                 <p>Joke: {joke}</p>
-
             </div>
         );
     }
