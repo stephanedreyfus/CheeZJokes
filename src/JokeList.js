@@ -7,7 +7,7 @@ class JokeList extends Component {
     constructor(props){
         super(props);
         this.state = {
-            jokes: [ ]
+            jokes: []
         };
         this.upVote = this.upVote.bind(this);
         this.downVote = this.downVote.bind(this);
@@ -23,12 +23,24 @@ class JokeList extends Component {
 
     // Increment joke score by one, track by joke id.
     upVote(jkID) {
-        this.setState()
+        const updateScore = this.state.jokes.map(jk => {
+            if (jk.id === jkID) {
+                return { ...jk, score: ++jk.score};
+            }
+            return jk;
+        });
+        this.setState({ jokes: updateScore });
     }
 
     // Decrement joke score by one, track by joke id.
     downVote(jkID) {
-
+        const updateScore = this.state.jokes.map(jk => {
+            if (jk.id === jkID) {
+                return { ...jk, score: --jk.score};
+            }
+            return jk;
+        });
+        this.setState({ jokes: updateScore });
     }
   
 
