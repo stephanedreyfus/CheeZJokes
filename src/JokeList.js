@@ -3,6 +3,7 @@ import Joke from './Joke';
 import axios from 'axios';
 
 const I_CAN_HAZ_DAD_JOKES_URL = `https://icanhazdadjoke.com/`;
+
 class JokeList extends Component {
     constructor(props){
         super(props);
@@ -17,7 +18,12 @@ class JokeList extends Component {
         for(let i = 0; i < 10; i++){
             let getJoke = await axios.get(I_CAN_HAZ_DAD_JOKES_URL,
                                         {headers: {'Accept': 'application/json'} });
-            this.setState(  { jokes: [...this.state.jokes, {score:0, joke: getJoke.data.joke, id: getJoke.data.id }] });                            
+            this.setState(  { jokes: [...this.state.jokes,
+                                      { score: 0,
+                                        joke: getJoke.data.joke,
+                                        id: getJoke.data.id
+                                      }]
+                                    });                            
         }
     }
 
